@@ -1,5 +1,8 @@
 import Cookies from 'js-cookie'
 import {Component} from 'react'
+import {HiFire} from 'react-icons/hi'
+import {formatDistanceToNow} from 'date-fns'
+import {BsDot} from 'react-icons/bs'
 
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
@@ -8,8 +11,24 @@ import {
   SideNavbarContainer,
   MainContainer,
   HomeContainer,
-} from '../Home/styledComponents'
+  HeadingAndIconContainer,
+  TabHeading,
+  TabIcon,
+  VideosListContainer,
+  VideoContainer,
+  VideoThumbnail,
+  VideoProfileContainer,
+  ProfileImage,
+  VideoHeading,
+  VideoDetailsContainer,
+  VideoDetails,
+  Details,
+  DotIcon,
+  PublishedViewContainer,
+} from './styledComponents'
+
 import NxtWatchContext from '../../context/NxtWatchContext'
+// import {Heading} from '../SideNavbar/styledComponents'
 
 const apiStatusList = {
   initial: 'INITIAL',
@@ -19,6 +38,8 @@ const apiStatusList = {
 }
 
 class Home extends Component {
+  state = {apiStatus: apiStatusList.initial, trendingList: []}
+
   componentDidMount() {
     this.getTrendingVideos()
   }
@@ -37,7 +58,6 @@ class Home extends Component {
     }
 
     const response = await fetch(url, options)
-    console.log(response)
 
     if (response.ok === true) {
       const data = await response.json()
@@ -54,13 +74,88 @@ class Home extends Component {
         },
       }))
 
-      console.log(formattedData)
-
-      /* return this.setState({
-        // apiStatus: apiStatusList.success,
-      }) */
+      return this.setState({
+        trendingList: formattedData,
+        apiStatus: apiStatusList.success,
+      })
     }
-    /* return this.setState({apiStatus: apiStatusList.failure}) */
+    return this.setState({apiStatus: apiStatusList.failure})
+  }
+
+  getSuccessView = () => {
+    const {trendingList} = this.state
+    return trendingList.length > 0 ? (
+      <NxtWatchContext.Consumer>
+        {value => {
+          const {darkTheme} = value
+
+          return (
+            <VideosListContainer>
+              {trendingList.map(video => {
+                const {
+                  id,
+                  publishedAt,
+                  thumbnailUrl,
+                  title,
+                  viewCount,
+                  channel,
+                } = video
+                const {name, profileImageUrl} = channel
+
+                const timeFromPublished = formatDistanceToNow(
+                  new Date(publishedAt),
+                )
+                const forList = timeFromPublished.split(' ')
+                const time = `${forList[1]} ${forList[2]} ago`
+
+                return (
+                  <VideoContainer key={id}>
+                    <VideoThumbnail src={thumbnailUrl} alt={title} />
+                    <VideoProfileContainer>
+                      <ProfileImage src={profileImageUrl} alt={name} />
+                      <VideoDetailsContainer>
+                        <VideoHeading themeColor={darkTheme}>
+                          {title}
+                        </VideoHeading>
+                        <VideoDetails>
+                          <Details small>{name}</Details>
+                          <PublishedViewContainer>
+                            <DotIcon extraSmall>
+                              <BsDot />
+                            </DotIcon>
+                            <Details>{viewCount}</Details>
+                            <DotIcon>
+                              <BsDot />
+                            </DotIcon>
+                            <Details>{time}</Details>
+                          </PublishedViewContainer>
+                        </VideoDetails>
+                      </VideoDetailsContainer>
+                    </VideoProfileContainer>
+                  </VideoContainer>
+                )
+              })}
+            </VideosListContainer>
+          )
+        }}
+      </NxtWatchContext.Consumer>
+    ) : null
+  }
+
+  getDesiredView = () => {
+    const {apiStatus} = this.state
+
+    switch (apiStatus) {
+      case apiStatusList.loading:
+        return this.getSuccessView()
+      case apiStatusList.success:
+        return this.getSuccessView()
+      case apiStatusList.failure:
+        return this.getSuccessView()
+
+      default:
+        return null
+    }
   }
 
   render() {
@@ -75,7 +170,13 @@ class Home extends Component {
               <SideNavbarContainer>
                 <SideNavbar />
                 <HomeContainer themeColor={darkTheme}>
-                  <h1>Trending</h1>
+                  <HeadingAndIconContainer themeColor={darkTheme}>
+                    <TabIcon themeColor={darkTheme}>
+                      <HiFire />
+                    </TabIcon>
+                    <TabHeading themeColor={darkTheme}>Trending</TabHeading>
+                  </HeadingAndIconContainer>
+                  {this.getDesiredView()}
                 </HomeContainer>
               </SideNavbarContainer>
             </MainContainer>

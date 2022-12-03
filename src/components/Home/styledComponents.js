@@ -117,7 +117,10 @@ export const VideoProfileContainer = styled.div`
 `
 
 export const ProfileImage = styled.img`
-  width: 50px;
+  width: 35px;
+  @media screen and (min-width: 768px) {
+    width: 35px;
+  }
 `
 
 export const VideoDetailsContainer = styled.div`
