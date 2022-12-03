@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const IconNameButton = styled.button`
+  cursor: pointer;
   border: none;
   display: flex;
   align-items: center;

@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {AiOutlineSearch} from 'react-icons/ai'
@@ -9,6 +10,7 @@ import SideNavbar from '../SideNavbar'
 import PremiumPlan from '../PremiumPlan'
 import LoadingView from '../LoadingView'
 import FailureView from '../FailureView'
+import './index.css'
 
 import {
   SideNavbarContainer,
@@ -133,28 +135,30 @@ class Home extends Component {
 
                 return (
                   <VideoContainer key={id}>
-                    <VideoThumbnail src={thumbnailUrl} alt={title} />
-                    <VideoProfileContainer>
-                      <ProfileImage src={profileImageUrl} alt={name} />
-                      <VideoDetailsContainer>
-                        <VideoHeading themeColor={darkTheme}>
-                          {title}
-                        </VideoHeading>
-                        <VideoDetails>
-                          <Details small>{name}</Details>
-                          <PublishedViewContainer>
-                            <DotIcon extraSmall>
-                              <BsDot />
-                            </DotIcon>
-                            <Details>{viewCount}</Details>
-                            <DotIcon>
-                              <BsDot />
-                            </DotIcon>
-                            <Details>{time}</Details>
-                          </PublishedViewContainer>
-                        </VideoDetails>
-                      </VideoDetailsContainer>
-                    </VideoProfileContainer>
+                    <Link to={`/videos/${id}`} className="link-item">
+                      <VideoThumbnail src={thumbnailUrl} alt={title} />
+                      <VideoProfileContainer>
+                        <ProfileImage src={profileImageUrl} alt={name} />
+                        <VideoDetailsContainer>
+                          <VideoHeading themeColor={darkTheme}>
+                            {title}
+                          </VideoHeading>
+                          <VideoDetails>
+                            <Details small>{name}</Details>
+                            <PublishedViewContainer>
+                              <DotIcon extraSmall>
+                                <BsDot />
+                              </DotIcon>
+                              <Details>{viewCount}</Details>
+                              <DotIcon>
+                                <BsDot />
+                              </DotIcon>
+                              <Details>{time}</Details>
+                            </PublishedViewContainer>
+                          </VideoDetails>
+                        </VideoDetailsContainer>
+                      </VideoProfileContainer>
+                    </Link>
                   </VideoContainer>
                 )
               })}

@@ -21,6 +21,7 @@ export const CloseIcon = styled.div`
 `
 
 export const IconNameButton = styled.button`
+  cursor: pointer;
   border: none;
   display: flex;
   justify-content: center;

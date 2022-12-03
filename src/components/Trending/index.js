@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import {Component} from 'react'
 import {HiFire} from 'react-icons/hi'
@@ -6,6 +7,8 @@ import {BsDot} from 'react-icons/bs'
 
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
+import LoadingView from '../LoadingView'
+import FailureView from '../FailureView'
 
 import {
   SideNavbarContainer,
@@ -82,6 +85,10 @@ class Home extends Component {
     return this.setState({apiStatus: apiStatusList.failure})
   }
 
+  onClickingRetryButton = () => {
+    this.getTrendingVideos()
+  }
+
   getSuccessView = () => {
     const {trendingList} = this.state
     return trendingList.length > 0 ? (
@@ -110,28 +117,30 @@ class Home extends Component {
 
                 return (
                   <VideoContainer key={id}>
-                    <VideoThumbnail src={thumbnailUrl} alt={title} />
-                    <VideoProfileContainer>
-                      <ProfileImage src={profileImageUrl} alt={name} />
-                      <VideoDetailsContainer>
-                        <VideoHeading themeColor={darkTheme}>
-                          {title}
-                        </VideoHeading>
-                        <VideoDetails>
-                          <Details small>{name}</Details>
-                          <PublishedViewContainer>
-                            <DotIcon extraSmall>
-                              <BsDot />
-                            </DotIcon>
-                            <Details>{viewCount}</Details>
-                            <DotIcon>
-                              <BsDot />
-                            </DotIcon>
-                            <Details>{time}</Details>
-                          </PublishedViewContainer>
-                        </VideoDetails>
-                      </VideoDetailsContainer>
-                    </VideoProfileContainer>
+                    <Link to={`/videos/${id}`} className="trending-link-item">
+                      <VideoThumbnail src={thumbnailUrl} alt={title} />
+                      <VideoProfileContainer>
+                        <ProfileImage src={profileImageUrl} alt={name} />
+                        <VideoDetailsContainer>
+                          <VideoHeading themeColor={darkTheme}>
+                            {title}
+                          </VideoHeading>
+                          <VideoDetails>
+                            <Details small>{name}</Details>
+                            <PublishedViewContainer>
+                              <DotIcon extraSmall>
+                                <BsDot />
+                              </DotIcon>
+                              <Details>{viewCount}</Details>
+                              <DotIcon>
+                                <BsDot />
+                              </DotIcon>
+                              <Details>{time}</Details>
+                            </PublishedViewContainer>
+                          </VideoDetails>
+                        </VideoDetailsContainer>
+                      </VideoProfileContainer>
+                    </Link>
                   </VideoContainer>
                 )
               })}
@@ -147,11 +156,13 @@ class Home extends Component {
 
     switch (apiStatus) {
       case apiStatusList.loading:
-        return this.getSuccessView()
+        return <LoadingView />
       case apiStatusList.success:
         return this.getSuccessView()
       case apiStatusList.failure:
-        return this.getSuccessView()
+        return (
+          <FailureView onClickingRetryButton={this.onClickingRetryButton} />
+        )
 
       default:
         return null

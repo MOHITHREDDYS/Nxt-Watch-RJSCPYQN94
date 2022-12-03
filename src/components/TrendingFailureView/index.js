@@ -30,11 +30,10 @@ const FailureView = props => {
               alt="failure view"
             />
             <NoResultsHeading themeColor={darkTheme}>
-              Oops! Something Went Wrong
+              No Search results found
             </NoResultsHeading>
             <NoResultsParagraph>
-              We are having some trouble to complete your request. Please try
-              again.
+              Try different key words or remove search filter
             </NoResultsParagraph>
             <RetryButton type="button" onClick={onClickingButton}>
               Retry

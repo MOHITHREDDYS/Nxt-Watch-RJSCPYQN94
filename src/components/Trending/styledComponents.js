@@ -14,7 +14,7 @@ export const HomeContainer = styled.div`
   background-color: ${props => (props.themeColor ? '#0f0f0f' : '#f9f9f9')};
   flex: 1;
   max-height: 90vh;
-  overflow: scroll;
+  overflow-y: scroll;
 `
 export const HeadingAndIconContainer = styled.div`
   background-color: ${props => (props.themeColor ? '#181818' : '#f1f1f1')};

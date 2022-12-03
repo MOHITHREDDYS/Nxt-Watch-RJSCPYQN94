@@ -14,7 +14,7 @@ export const HomeContainer = styled.div`
   background-color: ${props => (props.themeColor ? '#181818' : '#f9f9f9')};
   flex: 1;
   max-height: 90vh;
-  overflow: scroll;
+  overflow-y: scroll;
 `
 export const SearchMainContainer = styled.div`
   width: 100%;
@@ -189,19 +189,27 @@ export const NoResultsImage = styled.img`
 `
 export const NoResultsHeading = styled.h1`
   color: ${props => (props.themeColor ? '#ffffff' : '#1e293b')};
-  font-size: 22px;
+  font-size: 20px;
   text-align: center;
   font-family: 'Roboto';
   margin-bottom: 10px;
+  max-width: 400px;
+  @media screen and (min-width: 768px) {
+    font-size: 22px;
+  }
 `
 
 export const NoResultsParagraph = styled.p`
   color: ${props => (props.themeColor ? '#ffffff' : '#475569')};
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 500;
   text-align: center;
   font-family: 'Roboto';
   margin-top: 0px;
+  max-width: 400px;
+  @media screen and (min-width: 768px) {
+    font-size: 17px;
+  }
 `
 
 export const RetryButton = styled.button`
