@@ -1,32 +1,11 @@
 import styled from 'styled-components'
 
-export const PopupContainer = styled.div`
-  background-color: ${props => (props.themeColor ? '#231f20' : '#ffffff')};
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0px;
-`
-
-export const HamItemsContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-
-export const CloseIcon = styled.div`
-  color: ${props => (props.themeColor ? '#ffffff' : '#000000')};
-  align-self: flex-end;
-`
-
 export const IconNameButton = styled.button`
   border: none;
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100%;
-  padding-left: 80px;
+  padding-left: 20px;
   color: ${props => {
     if (props.active === 'yes') {
       return '#ff0000'
@@ -52,12 +31,11 @@ export const IconNameButton = styled.button`
 
   /* ${props => (props.active === 'yes' ? '#f1f5f9' : '#ffffff')}; */
 `
-
 export const HamItems = styled.p`
-  font-size: 18px;
+  font-size: 15px;
   width: 120px;
   text-align: left;
-  margin-left: 15px;
+  margin-left: 20px;
   color: ${props => (props.themeColor ? '#ffffff' : '#383838')};
   text-decoration: none;
   font-weight: ${props => (props.active === 'yes' ? 'bold' : 400)};
