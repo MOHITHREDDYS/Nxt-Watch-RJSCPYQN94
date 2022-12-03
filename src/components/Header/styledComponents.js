@@ -4,6 +4,7 @@ export const NavbarMainContainer = styled.nav`
   display: flex;
   justify-content: center;
   background-color: ${props => (props.themeColor ? '#231f20' : '#ffffff')};
+  height: 10vh;
 `
 export const NavbarContainer = styled.div`
   width: 100%;

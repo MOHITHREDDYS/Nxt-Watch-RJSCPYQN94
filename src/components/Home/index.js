@@ -1,10 +1,14 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {AiOutlineSearch} from 'react-icons/ai'
+import {BsDot} from 'react-icons/bs'
+import {formatDistanceToNow} from 'date-fns'
 
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
 import PremiumPlan from '../PremiumPlan'
+import LoadingView from '../LoadingView'
+import FailureView from '../FailureView'
 
 import {
   SideNavbarContainer,
@@ -23,6 +27,15 @@ import {
   ProfileImage,
   VideoHeading,
   VideoDetailsContainer,
+  VideoDetails,
+  Details,
+  DotIcon,
+  PublishedViewContainer,
+  NoResultsContainer,
+  NoResultsImage,
+  NoResultsHeading,
+  NoResultsParagraph,
+  RetryButton,
 } from './styledComponents'
 import NxtWatchContext from '../../context/NxtWatchContext'
 
@@ -41,11 +54,13 @@ class Home extends Component {
   }
 
   getHomeVideos = async () => {
+    this.setState({apiStatus: apiStatusList.loading})
+
     const {searchInput} = this.state
 
     const jwtToken = Cookies.get('jwt_token')
 
-    const url = `https://apis.ccbp.in/videos/all`
+    const url = `https://apis.ccbp.in/videos/all?search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -82,51 +97,114 @@ class Home extends Component {
     this.setState({searchInput: event.target.value})
   }
 
+  onClickingSearchIcon = () => {
+    this.getHomeVideos()
+  }
+
+  onClickingRetryButton = () => {
+    this.getHomeVideos()
+  }
+
   getSuccessView = () => {
     const {videosList} = this.state
-
-    return (
-      <VideosListContainer>
-        {videosList.map(video => {
-          const {
-            id,
-            publishedAt,
-            thumbnailUrl,
-            title,
-            viewCount,
-            channel,
-          } = video
-          const {name, profileImageUrl} = channel
+    return videosList.length > 0 ? (
+      <NxtWatchContext.Consumer>
+        {value => {
+          const {darkTheme} = value
 
           return (
-            <VideoContainer key={id}>
-              <VideoThumbnail src={thumbnailUrl} alt={title} />
-              <VideoProfileContainer>
-                <ProfileImage src={profileImageUrl} alt={name} />
-                <VideoDetailsContainer>
-                  <VideoHeading>{title}</VideoHeading>
-                  <p>{name}</p>
-                  <p>{viewCount}</p>
-                  <p>{publishedAt}</p>
-                </VideoDetailsContainer>
-              </VideoProfileContainer>
-            </VideoContainer>
+            <VideosListContainer>
+              {videosList.map(video => {
+                const {
+                  id,
+                  publishedAt,
+                  thumbnailUrl,
+                  title,
+                  viewCount,
+                  channel,
+                } = video
+                const {name, profileImageUrl} = channel
+
+                const timeFromPublished = formatDistanceToNow(
+                  new Date(publishedAt),
+                )
+                const forList = timeFromPublished.split(' ')
+                const time = `${forList[1]} ${forList[2]} ago`
+
+                return (
+                  <VideoContainer key={id}>
+                    <VideoThumbnail src={thumbnailUrl} alt={title} />
+                    <VideoProfileContainer>
+                      <ProfileImage src={profileImageUrl} alt={name} />
+                      <VideoDetailsContainer>
+                        <VideoHeading themeColor={darkTheme}>
+                          {title}
+                        </VideoHeading>
+                        <VideoDetails>
+                          <Details small>{name}</Details>
+                          <PublishedViewContainer>
+                            <DotIcon extraSmall>
+                              <BsDot />
+                            </DotIcon>
+                            <Details>{viewCount}</Details>
+                            <DotIcon>
+                              <BsDot />
+                            </DotIcon>
+                            <Details>{time}</Details>
+                          </PublishedViewContainer>
+                        </VideoDetails>
+                      </VideoDetailsContainer>
+                    </VideoProfileContainer>
+                  </VideoContainer>
+                )
+              })}
+            </VideosListContainer>
           )
-        })}
-      </VideosListContainer>
+        }}
+      </NxtWatchContext.Consumer>
+    ) : (
+      this.getNoResultsView()
     )
   }
+
+  getNoResultsView = () => (
+    <NxtWatchContext.Consumer>
+      {value => {
+        const {darkTheme} = value
+
+        return (
+          <NoResultsContainer>
+            <NoResultsImage
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+              alt="no videos"
+            />
+            <NoResultsHeading themeColor={darkTheme}>
+              No Search results found
+            </NoResultsHeading>
+            <NoResultsParagraph>
+              Try different key words or remove search filter
+            </NoResultsParagraph>
+            <RetryButton type="button" onClick={this.onClickingRetryButton}>
+              Retry
+            </RetryButton>
+          </NoResultsContainer>
+        )
+      }}
+    </NxtWatchContext.Consumer>
+  )
 
   renderDesiredView = () => {
     const {apiStatus} = this.state
 
     switch (apiStatus) {
       case apiStatusList.loading:
-        return this.getSuccessView()
+        return <LoadingView />
       case apiStatusList.success:
         return this.getSuccessView()
       case apiStatusList.failure:
-        return this.getSuccessView()
+        return (
+          <FailureView onClickingRetryButton={this.onClickingRetryButton} />
+        )
       default:
         return null
     }
@@ -148,17 +226,18 @@ class Home extends Component {
                   {showPremiumPlan && <PremiumPlan />}
                   <HomeItemsContainer>
                     <SearchMainContainer>
-                      <SearchContainer>
+                      <SearchContainer themeColor={darkTheme}>
                         <SearchInput
                           type="search"
                           placeholder="Search"
                           value={searchInput}
                           onChange={this.onChangingSearchValue}
+                          themeColor={darkTheme}
                         />
                         <SearchButton
                           type="button"
-                          className="search-button"
                           onClick={this.onClickingSearchIcon}
+                          themeColor={darkTheme}
                         >
                           <SearchIcon>
                             <AiOutlineSearch />

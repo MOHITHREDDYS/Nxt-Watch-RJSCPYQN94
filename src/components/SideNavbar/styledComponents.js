@@ -4,7 +4,7 @@ export const MainContainer = styled.div`
   display: flex;
   height: 100%;
   width: 25%;
-  max-width: 300px;
+  max-width: 250px;
   @media screen and (max-width: 767px) {
     display: none;
   }
