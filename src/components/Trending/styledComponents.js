@@ -75,6 +75,8 @@ export const VideoThumbnail = styled.img`
   height: 200px;
   @media screen and (min-width: 576px) {
     width: 350px;
+    min-width: 350px;
+    max-width: 350px;
     height: 180px;
     flex: 0;
   }
