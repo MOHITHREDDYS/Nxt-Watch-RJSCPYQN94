@@ -158,22 +158,23 @@ export const LikeButton = styled.button`
 export const LikeIcon = styled(DotIcon)`
   margin-right: 5px;
   color: ${props => {
-    const {themeColor, isSaved, isLiked, isDisliked} = props
+    const {isSaved, isLiked, isDisliked} = props
     if (isSaved || isLiked || isDisliked) {
-      return '#3b82f6'
+      return '#2563eb'
     }
-    return themeColor ? '#94a3b8' : '#475569'
+    return '#64748b'
   }};
 `
 export const LikeName = styled(Details)`
   font-size: 16px;
   font-weight: 600;
   color: ${props => {
-    const {themeColor, isSaved, isLiked, isDisliked} = props
+    const {isSaved, isLiked, isDisliked} = props
     if (isSaved || isLiked || isDisliked) {
-      return '#3b82f6'
+      return '#2563eb'
     }
-    return themeColor ? '#94a3b8' : '#475569'
+    // return themeColor ? '#94a3b8' : '#475569'
+    return '#64748b'
   }};
 `
 

@@ -135,9 +135,15 @@ class Home extends Component {
                 return (
                   <VideoContainer key={id}>
                     <Link to={`/videos/${id}`} className="link-item">
-                      <VideoThumbnail src={thumbnailUrl} alt={title} />
+                      <VideoThumbnail
+                        src={thumbnailUrl}
+                        alt="video thumbnail"
+                      />
                       <VideoProfileContainer>
-                        <ProfileImage src={profileImageUrl} alt={name} />
+                        <ProfileImage
+                          src={profileImageUrl}
+                          alt="channel logo"
+                        />
                         <VideoDetailsContainer>
                           <VideoHeading themeColor={darkTheme}>
                             {title}
@@ -225,7 +231,7 @@ class Home extends Component {
               <Header />
               <SideNavbarContainer>
                 <SideNavbar />
-                <HomeContainer themeColor={darkTheme}>
+                <HomeContainer themeColor={darkTheme} data-testid="home">
                   {showPremiumPlan && <PremiumPlan />}
                   <HomeItemsContainer>
                     <SearchMainContainer>
@@ -241,6 +247,7 @@ class Home extends Component {
                           type="button"
                           onClick={this.onClickingSearchIcon}
                           themeColor={darkTheme}
+                          data-testid="searchButton"
                         >
                           <SearchIcon>
                             <AiOutlineSearch />

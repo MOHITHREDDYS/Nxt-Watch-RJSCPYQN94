@@ -10,14 +10,14 @@ import NxtWatchContext from '../../context/NxtWatchContext'
 const FailureView = props => {
   const {onClickingRetryButton} = props
 
-  const onClickingButton = () => {
-    onClickingRetryButton()
-  }
-
   return (
     <NxtWatchContext.Consumer>
       {value => {
         const {darkTheme} = value
+
+        const onClickingButton = () => {
+          onClickingRetryButton()
+        }
 
         return (
           <NoResultsContainer>
@@ -36,9 +36,7 @@ const FailureView = props => {
               We are having some trouble to complete your request. Please try
               again.
             </NoResultsParagraph>
-            <RetryButton type="button" onClick={onClickingButton}>
-              Retry
-            </RetryButton>
+            <RetryButton onClick={onClickingButton}>Retry</RetryButton>
           </NoResultsContainer>
         )
       }}

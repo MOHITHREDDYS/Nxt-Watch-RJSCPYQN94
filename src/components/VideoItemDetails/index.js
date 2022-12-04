@@ -204,7 +204,7 @@ class VideoItemDetails extends Component {
                 </DetailsAndLikeContainer>
                 <HorizontalLine themeColor={darkTheme} />
                 <ProfileContainer>
-                  <ProfileImage src={profileImageUrl} alt={name} />
+                  <ProfileImage src={profileImageUrl} alt="channel logo" />
                   <ChannelContainer>
                     <ChannelName themeColor={darkTheme}>{name}</ChannelName>
                     <Subscribers themeColor={darkTheme}>
@@ -255,7 +255,10 @@ class VideoItemDetails extends Component {
               <Header />
               <SideNavbarContainer>
                 <SideNavbar />
-                <HomeContainer themeColor={darkTheme}>
+                <HomeContainer
+                  themeColor={darkTheme}
+                  data-testid="videoItemDetails"
+                >
                   {this.getDesiredView()}
                 </HomeContainer>
               </SideNavbarContainer>

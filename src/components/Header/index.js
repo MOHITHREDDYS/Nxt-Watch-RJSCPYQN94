@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 import {Link, withRouter} from 'react-router-dom'
 import {FaMoon} from 'react-icons/fa'
-import {FiSun, FiLogOut} from 'react-icons/fi'
+import {FiSun} from 'react-icons/fi'
 
 import {
   NavbarMainContainer,
@@ -12,12 +12,12 @@ import {
   ThemeButton,
   ProfileImage,
   HamBurgerOrProfileItem,
-  LogoutButton,
 } from './styledComponents'
 import './index.css'
 
 import HamBurgerPopup from '../HamburgerPopup'
 import NxtWatchContext from '../../context/NxtWatchContext'
+import LogoutButtonPopup from '../LogoutButtonPopup'
 
 const Header = props => (
   <NxtWatchContext.Consumer>
@@ -45,7 +45,7 @@ const Header = props => (
                     ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
                     : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
                 }
-                alt="logo"
+                alt="website logo"
               />
             </Link>
             <NavItemsContainer>
@@ -53,6 +53,7 @@ const Header = props => (
                 <ThemeButton
                   themeColor={darkTheme}
                   onClick={onClickingThemeIcon}
+                  data-testid="theme"
                 >
                   {darkTheme ? (
                     <FiSun className="sun-icon" />
@@ -72,20 +73,7 @@ const Header = props => (
                   />
                 </ThemeButton>
               </HamBurgerOrProfileItem>
-              <HamBurgerOrProfileItem mobile>
-                <ThemeButton themeColor={darkTheme} onClick={onClickingLogout}>
-                  <FiLogOut className="logout-icon" />
-                </ThemeButton>
-              </HamBurgerOrProfileItem>
-              <HamBurgerOrProfileItem>
-                <LogoutButton
-                  type="button"
-                  themeColor={darkTheme}
-                  onClick={onClickingLogout}
-                >
-                  Logout
-                </LogoutButton>
-              </HamBurgerOrProfileItem>
+              <LogoutButtonPopup onClickingLogout={onClickingLogout} />
             </NavItemsContainer>
           </NavbarContainer>
         </NavbarMainContainer>

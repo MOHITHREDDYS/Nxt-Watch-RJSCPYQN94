@@ -65,9 +65,9 @@ class Trending extends Component {
               return (
                 <VideoContainer key={id}>
                   <Link to={`/videos/${id}`} className="trending-link-item">
-                    <VideoThumbnail src={thumbnailUrl} alt={title} />
+                    <VideoThumbnail src={thumbnailUrl} alt="video thumbnail" />
                     <VideoProfileContainer>
-                      <ProfileImage src={profileImageUrl} alt={name} />
+                      <ProfileImage src={profileImageUrl} alt="channel logo" />
                       <VideoDetailsContainer>
                         <VideoHeading themeColor={darkTheme}>
                           {title}
@@ -134,7 +134,7 @@ class Trending extends Component {
               <Header />
               <SideNavbarContainer>
                 <SideNavbar />
-                <HomeContainer themeColor={darkTheme}>
+                <HomeContainer themeColor={darkTheme} data-testid="savedVideos">
                   <HeadingAndIconContainer themeColor={darkTheme}>
                     <TabIcon themeColor={darkTheme}>
                       <HiFire />

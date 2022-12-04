@@ -95,12 +95,12 @@ export const VideoContainer = styled.li`
   @media screen and (min-width: 576px) {
     width: 45%;
     margin: 10px;
-    flex: 1;
     min-width: 250px;
   }
   @media screen and (min-width: 768px) {
-    width: 250px;
-    flex: 1;
+    width: 28%;
+    min-width: 250px;
+    max-width: 280px;
   }
 `
 
@@ -128,9 +128,10 @@ export const ProfileImage = styled.img`
 export const VideoDetailsContainer = styled.div`
   margin-left: 15px;
 `
-export const VideoHeading = styled.h1`
+export const VideoHeading = styled.p`
   color: ${props => (props.themeColor ? '#f1f5f9' : '#0f0f0f')};
   font-size: 13px;
+  font-weight: bold;
   margin-top: 0px;
   font-family: 'Roboto';
   line-height: 1.5;

@@ -103,9 +103,10 @@ export const ProfileImage = styled.img`
 export const VideoDetailsContainer = styled.div`
   margin-left: 15px;
 `
-export const VideoHeading = styled.h1`
+export const VideoHeading = styled.p`
   color: ${props => (props.themeColor ? '#f1f5f9' : '#0f0f0f')};
   font-size: 15px;
+  font-weight: bold;
   margin-top: 0px;
   font-family: 'Roboto';
   line-height: 1.5;

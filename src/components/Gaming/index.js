@@ -91,7 +91,10 @@ class Gaming extends Component {
                 return (
                   <VideoContainer key={id}>
                     <Link to={`/videos/${id}`} className="link-item">
-                      <VideoThumbnail src={thumbnailUrl} alt={title} />
+                      <VideoThumbnail
+                        src={thumbnailUrl}
+                        alt="video thumbnail"
+                      />
                       <VideoHeading themeColor={darkTheme}>
                         {title}
                       </VideoHeading>
@@ -136,7 +139,7 @@ class Gaming extends Component {
               <Header />
               <SideNavbarContainer>
                 <SideNavbar />
-                <HomeContainer themeColor={darkTheme}>
+                <HomeContainer themeColor={darkTheme} data-testid="gaming">
                   <HeadingAndIconContainer themeColor={darkTheme}>
                     <TabIcon themeColor={darkTheme}>
                       <SiYoutubegaming />

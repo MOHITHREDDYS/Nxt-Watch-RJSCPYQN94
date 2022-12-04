@@ -36,7 +36,7 @@ export const VideoThumbnail = styled.img`
   }
 `
 
-export const VideoHeading = styled.h1`
+export const VideoHeading = styled.p`
   color: ${props => (props.themeColor ? '#f1f5f9' : '#0f0f0f')};
   font-size: 15px;
   margin-top: 10px;
@@ -44,7 +44,7 @@ export const VideoHeading = styled.h1`
   line-height: 1.5;
   margin-bottom: 0px;
   max-height: 40px;
-  font-weight: 500;
+  font-weight: bold;
   overflow: hidden;
   @media screen and (min-width: 576px) {
     margin-bottom: 5px;
