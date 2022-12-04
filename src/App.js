@@ -54,6 +54,9 @@ class App extends Component {
     darkTheme: false,
     tabsList: initialTabsList,
     showPremiumPlan: true,
+    savedVideosList: [],
+    likedVideosList: [],
+    dislikedVideosList: [],
   }
 
   toggleTheme = () => {
@@ -75,8 +78,61 @@ class App extends Component {
     }))
   }
 
+  onClickingSaveButton = (id, addVideo) => {
+    const {savedVideosList} = this.state
+
+    const isPresent = savedVideosList.some(video => video.id === id)
+
+    return !isPresent
+      ? this.setState({savedVideosList: [...savedVideosList, addVideo]})
+      : this.setState({
+          savedVideosList: savedVideosList.filter(video => video.id !== id),
+        })
+  }
+
+  onClickingLikeButton = (id, addVideo) => {
+    const {likedVideosList, dislikedVideosList} = this.state
+
+    const isPresent = likedVideosList.some(video => video.id === id)
+
+    return !isPresent
+      ? this.setState({
+          likedVideosList: [...likedVideosList, addVideo],
+          dislikedVideosList: dislikedVideosList.filter(
+            video => video.id !== id,
+          ),
+        })
+      : this.setState({
+          likedVideosList: likedVideosList.filter(video => video.id !== id),
+        })
+  }
+
+  onClickingDislikeButton = (id, addVideo) => {
+    const {dislikedVideosList, likedVideosList} = this.state
+
+    const isPresent = dislikedVideosList.some(video => video.id === id)
+
+    return !isPresent
+      ? this.setState({
+          dislikedVideosList: [...dislikedVideosList, addVideo],
+          likedVideosList: likedVideosList.filter(video => video.id !== id),
+        })
+      : this.setState({
+          dislikedVideosList: dislikedVideosList.filter(
+            video => video.id !== id,
+          ),
+        })
+  }
+
   render() {
-    const {darkTheme, tabsList, showPremiumPlan} = this.state
+    const {
+      darkTheme,
+      tabsList,
+      showPremiumPlan,
+      savedVideosList,
+      likedVideosList,
+      dislikedVideosList,
+    } = this.state
     return (
       <NxtWatchContext.Provider
         value={{
@@ -86,6 +142,12 @@ class App extends Component {
           changeActiveTab: this.changeActiveTab,
           showPremiumPlan,
           deletingBanner: this.deletingBanner,
+          savedVideosList,
+          onClickingSaveButton: this.onClickingSaveButton,
+          likedVideosList,
+          onClickingLikeButton: this.onClickingLikeButton,
+          dislikedVideosList,
+          onClickingDislikeButton: this.onClickingDislikeButton,
         }}
       >
         <Switch>

@@ -15,14 +15,12 @@ import {
   SideNavbarContainer,
   MainContainer,
   HomeContainer,
-  VideoProfileContainer,
   ProfileImage,
   VideoHeading,
   VideoDetailsContainer,
   VideoDetails,
   Details,
   DotIcon,
-  PublishedViewContainer,
   VideoContainer,
   LikeButton,
   LikeIcon,
@@ -49,7 +47,10 @@ const apiStatusList = {
 }
 
 class VideoItemDetails extends Component {
-  state = {apiStatus: apiStatusList.initial, videoDetails: []}
+  state = {
+    apiStatus: apiStatusList.initial,
+    videoDetails: {},
+  }
 
   componentDidMount() {
     this.getTrendingVideos()
@@ -109,6 +110,7 @@ class VideoItemDetails extends Component {
     const {videoDetails} = this.state
 
     const {
+      id,
       publishedAt,
       title,
       videoUrl,
@@ -125,7 +127,39 @@ class VideoItemDetails extends Component {
     return (
       <NxtWatchContext.Consumer>
         {value => {
-          const {darkTheme} = value
+          const {
+            darkTheme,
+            onClickingSaveButton,
+            onClickingLikeButton,
+            onClickingDislikeButton,
+            savedVideosList,
+            likedVideosList,
+            dislikedVideosList,
+          } = value
+
+          const isSaved = savedVideosList.some(video => video.id === id)
+          const isLiked = likedVideosList.some(video => video.id === id)
+          const isDisliked = dislikedVideosList.some(video => video.id === id)
+
+          const onClickingSave = () => {
+            onClickingSaveButton(id, videoDetails)
+          }
+
+          const onClickingLike = () => {
+            this.setState(prevState => ({
+              isLiked: !prevState.isLiked,
+              isDisliked: false,
+            }))
+            onClickingLikeButton(id, videoDetails)
+          }
+
+          const onClickingDislike = () => {
+            this.setState(prevState => ({
+              isDisliked: !prevState.isDisliked,
+              isLiked: false,
+            }))
+            onClickingDislikeButton(id, videoDetails)
+          }
 
           return (
             <VideoItemContainer>
@@ -143,23 +177,29 @@ class VideoItemDetails extends Component {
                     <Details themeColor={darkTheme}>{time}</Details>
                   </VideoDetails>
                   <VideoDetails>
-                    <LikeButton>
-                      <LikeIcon themeColor={darkTheme}>
+                    <LikeButton onClick={onClickingLike}>
+                      <LikeIcon themeColor={darkTheme} isLiked={isLiked}>
                         <BiLike />
                       </LikeIcon>
-                      <LikeName themeColor={darkTheme}>Like</LikeName>
+                      <LikeName themeColor={darkTheme} isLiked={isLiked}>
+                        Like
+                      </LikeName>
                     </LikeButton>
-                    <LikeButton>
-                      <LikeIcon themeColor={darkTheme}>
+                    <LikeButton onClick={onClickingDislike}>
+                      <LikeIcon themeColor={darkTheme} isDisliked={isDisliked}>
                         <BiDislike />
                       </LikeIcon>
-                      <LikeName themeColor={darkTheme}>Dislike</LikeName>
+                      <LikeName themeColor={darkTheme} isDisliked={isDisliked}>
+                        Dislike
+                      </LikeName>
                     </LikeButton>
-                    <LikeButton>
-                      <LikeIcon themeColor={darkTheme}>
+                    <LikeButton onClick={onClickingSave}>
+                      <LikeIcon themeColor={darkTheme} isSaved={isSaved}>
                         <MdPlaylistAdd />
                       </LikeIcon>
-                      <LikeName themeColor={darkTheme}>Save</LikeName>
+                      <LikeName themeColor={darkTheme} isSaved={isSaved}>
+                        {isSaved ? 'Saved' : 'Save'}
+                      </LikeName>
                     </LikeButton>
                   </VideoDetails>
                 </DetailsAndLikeContainer>

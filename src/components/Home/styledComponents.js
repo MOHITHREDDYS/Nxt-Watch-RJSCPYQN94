@@ -14,9 +14,9 @@ export const HomeContainer = styled.div`
   background-color: ${props => (props.themeColor ? '#181818' : '#f9f9f9')};
   flex: 1;
   max-height: 90vh;
-  overflow-y: scroll;
-  scrollbar-color: red yellow;
-  scrollbar-track-color: red;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 `
 export const SearchMainContainer = styled.div`
   width: 100%;
@@ -180,14 +180,19 @@ export const DotIcon = styled.div`
 export const NoResultsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 20px;
-  margin-bottom: 60px;
+  flex: 1;
 `
 
 export const NoResultsImage = styled.img`
   width: 60%;
+  min-width: 250px;
   max-width: 300px;
+  @media screen and (min-width: 768px) {
+    max-width: ${props => (props.save ? 400 : 300)}px;
+  }
 `
 export const NoResultsHeading = styled.h1`
   color: ${props => (props.themeColor ? '#ffffff' : '#1e293b')};

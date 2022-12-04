@@ -15,6 +15,9 @@ export const HomeContainer = styled.div`
   flex: 1;
   max-height: 90vh;
   overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
 `
 export const HeadingAndIconContainer = styled.div`
   background-color: ${props => (props.themeColor ? '#181818' : '#f1f1f1')};
@@ -154,10 +157,24 @@ export const LikeButton = styled.button`
 `
 export const LikeIcon = styled(DotIcon)`
   margin-right: 5px;
+  color: ${props => {
+    const {themeColor, isSaved, isLiked, isDisliked} = props
+    if (isSaved || isLiked || isDisliked) {
+      return '#3b82f6'
+    }
+    return themeColor ? '#94a3b8' : '#475569'
+  }};
 `
 export const LikeName = styled(Details)`
   font-size: 16px;
   font-weight: 600;
+  color: ${props => {
+    const {themeColor, isSaved, isLiked, isDisliked} = props
+    if (isSaved || isLiked || isDisliked) {
+      return '#3b82f6'
+    }
+    return themeColor ? '#94a3b8' : '#475569'
+  }};
 `
 
 export const DetailsAndLikeContainer = styled.div`

@@ -7,6 +7,15 @@ const NxtWatchContext = React.createContext({
   tabsList: [],
   showPremiumPlan: true,
   deletingBanner: () => {},
+
+  /* .......................... */
+  savedVideosList: [],
+  likedVideosList: [],
+  dislikedVideosList: [],
+  /* .......................... */
+  onClickingSaveButton: () => {},
+  onClickingLikeButton: () => {},
+  onClickingDislikeButton: () => {},
 })
 
 export default NxtWatchContext
