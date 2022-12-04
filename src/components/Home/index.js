@@ -74,7 +74,6 @@ class Home extends Component {
 
     if (response.ok === true) {
       const data = await response.json()
-      console.log(data)
       const formattedData = data.videos.map(video => ({
         id: video.id,
         publishedAt: video.published_at,
@@ -226,7 +225,7 @@ class Home extends Component {
               <Header />
               <SideNavbarContainer>
                 <SideNavbar />
-                <HomeContainer themeColor={darkTheme}>
+                <HomeContainer themeColor={darkTheme} className="scrollbar">
                   {showPremiumPlan && <PremiumPlan />}
                   <HomeItemsContainer>
                     <SearchMainContainer>

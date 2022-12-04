@@ -53,11 +53,9 @@ class Gaming extends Component {
     }
 
     const response = await fetch(url, options)
-    console.log(response)
 
     if (response.ok === true) {
       const data = await response.json()
-      console.log(data)
 
       const formattedData = data.videos.map(video => ({
         id: video.id,
@@ -65,8 +63,6 @@ class Gaming extends Component {
         title: video.title,
         viewCount: video.view_count,
       }))
-
-      console.log(formattedData)
 
       return this.setState({
         gamingList: formattedData,

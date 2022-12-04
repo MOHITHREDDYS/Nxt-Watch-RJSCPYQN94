@@ -15,6 +15,8 @@ export const HomeContainer = styled.div`
   flex: 1;
   max-height: 90vh;
   overflow-y: scroll;
+  scrollbar-color: red yellow;
+  scrollbar-track-color: red;
 `
 export const SearchMainContainer = styled.div`
   width: 100%;

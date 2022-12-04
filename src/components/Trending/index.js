@@ -40,7 +40,7 @@ const apiStatusList = {
   loading: 'LOADING',
 }
 
-class Home extends Component {
+class Trending extends Component {
   state = {apiStatus: apiStatusList.initial, trendingList: []}
 
   componentDidMount() {
@@ -198,4 +198,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default Trending

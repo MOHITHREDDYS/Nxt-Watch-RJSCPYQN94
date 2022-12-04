@@ -11,3 +11,22 @@
     display: flex;
   }
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: none;
+}
+::-webkit-scrollbar-thumb:vertical {
+  height: 30px;
+  background-color: #bfbfbf;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-corner {
+  border-radius: 10px;
+}
