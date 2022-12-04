@@ -225,7 +225,7 @@ class Home extends Component {
               <Header />
               <SideNavbarContainer>
                 <SideNavbar />
-                <HomeContainer themeColor={darkTheme} className="scrollbar">
+                <HomeContainer themeColor={darkTheme}>
                   {showPremiumPlan && <PremiumPlan />}
                   <HomeItemsContainer>
                     <SearchMainContainer>

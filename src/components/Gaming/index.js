@@ -39,6 +39,10 @@ class Gaming extends Component {
     this.getGamingVideos()
   }
 
+  onClickingRetryButton = () => {
+    this.getGamingVideos()
+  }
+
   getGamingVideos = async () => {
     this.setState({apiStatus: apiStatusList.loading})
 

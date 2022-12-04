@@ -91,7 +91,7 @@ class Trending extends Component {
 
   getSuccessView = () => {
     const {trendingList} = this.state
-    return trendingList.length > 0 ? (
+    return (
       <NxtWatchContext.Consumer>
         {value => {
           const {darkTheme} = value
@@ -148,7 +148,7 @@ class Trending extends Component {
           )
         }}
       </NxtWatchContext.Consumer>
-    ) : null
+    )
   }
 
   getDesiredView = () => {

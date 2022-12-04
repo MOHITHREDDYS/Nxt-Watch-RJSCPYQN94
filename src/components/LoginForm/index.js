@@ -114,26 +114,14 @@ class LoginForm extends Component {
                   <InputLabel htmlFor="password" themeColor={darkTheme}>
                     PASSWORD
                   </InputLabel>
-                  {!showPassword && (
-                    <InputValue
-                      type="password"
-                      id="password"
-                      value={password}
-                      placeholder="Password"
-                      onChange={this.onChangingPasswordInput}
-                      themeColor={darkTheme}
-                    />
-                  )}
-                  {showPassword && (
-                    <InputValue
-                      type="text"
-                      id="password"
-                      value={password}
-                      placeholder="Password"
-                      onChange={this.onChangingPasswordInput}
-                      themeColor={darkTheme}
-                    />
-                  )}
+                  <InputValue
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    value={password}
+                    placeholder="Password"
+                    onChange={this.onChangingPasswordInput}
+                    themeColor={darkTheme}
+                  />
                   <CheckboxContainer>
                     <InputCheckBox
                       type="checkbox"

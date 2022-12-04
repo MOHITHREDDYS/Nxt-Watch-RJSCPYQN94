@@ -77,7 +77,6 @@ class VideoItemDetails extends Component {
 
     if (response.ok === true) {
       const data = await response.json()
-      console.log(data)
 
       const formattedData = {
         id: data.video_details.id,

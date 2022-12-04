@@ -54,6 +54,7 @@ export const CheckboxContainer = styled.div`
 export const InputCheckBox = styled.input`
   width: 18px;
   height: 18px;
+  cursor: pointer;
 `
 export const CheckboxLabel = styled.label`
   font-size: 16px;
@@ -61,6 +62,7 @@ export const CheckboxLabel = styled.label`
   font-family: 'Roboto';
   font-weight: 500;
   margin-left: 10px;
+  cursor: pointer;
 `
 
 export const InputValue = styled.input`
@@ -86,6 +88,7 @@ export const LoginButton = styled.button`
   border: none;
   border-radius: 10px;
   margin-top: 20px;
+  cursor: pointer;
 `
 
 export const ErrorText = styled.p`

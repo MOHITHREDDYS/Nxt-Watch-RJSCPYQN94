@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import {MdPlaylistAdd} from 'react-icons/md'
 import {AiFillHome} from 'react-icons/ai'
 import {HiFire} from 'react-icons/hi'
@@ -14,6 +14,7 @@ import Trending from './components/Trending'
 import Gaming from './components/Gaming'
 import SavedVideos from './components/SavedVideos'
 import VideoItemDetails from './components/VideoItemDetails'
+import NotFound from './components/NotFound'
 
 import './App.css'
 
@@ -161,6 +162,8 @@ class App extends Component {
             path="/videos/:id"
             component={VideoItemDetails}
           />
+          <Route exact path="/not-found" component={NotFound} />
+          <Redirect to="/not-found" />
         </Switch>
       </NxtWatchContext.Provider>
     )
