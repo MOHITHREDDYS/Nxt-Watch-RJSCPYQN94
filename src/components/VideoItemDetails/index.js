@@ -53,10 +53,10 @@ class VideoItemDetails extends Component {
   }
 
   componentDidMount() {
-    this.getTrendingVideos()
+    this.getVideoDetails()
   }
 
-  getTrendingVideos = async () => {
+  getVideoDetails = async () => {
     this.setState({apiStatus: apiStatusList.loading})
 
     const jwtToken = Cookies.get('jwt_token')
@@ -102,7 +102,7 @@ class VideoItemDetails extends Component {
   }
 
   onClickingRetryButton = () => {
-    this.getTrendingVideos()
+    this.getVideoDetails()
   }
 
   getSuccessView = () => {
@@ -176,27 +176,30 @@ class VideoItemDetails extends Component {
                     <Details themeColor={darkTheme}>{time}</Details>
                   </VideoDetails>
                   <VideoDetails>
-                    <LikeButton onClick={onClickingLike}>
-                      <LikeIcon themeColor={darkTheme} isLiked={isLiked}>
+                    <LikeButton onClick={onClickingLike} disabled={isLiked}>
+                      <LikeIcon themeColor={darkTheme} addColor={isLiked}>
                         <BiLike />
                       </LikeIcon>
-                      <LikeName themeColor={darkTheme} isLiked={isLiked}>
+                      <LikeName themeColor={darkTheme} addColor={isLiked}>
                         Like
                       </LikeName>
                     </LikeButton>
-                    <LikeButton onClick={onClickingDislike}>
-                      <LikeIcon themeColor={darkTheme} isDisliked={isDisliked}>
+                    <LikeButton
+                      onClick={onClickingDislike}
+                      disabled={isDisliked}
+                    >
+                      <LikeIcon themeColor={darkTheme} addColor={isDisliked}>
                         <BiDislike />
                       </LikeIcon>
-                      <LikeName themeColor={darkTheme} isDisliked={isDisliked}>
+                      <LikeName themeColor={darkTheme} addColor={isDisliked}>
                         Dislike
                       </LikeName>
                     </LikeButton>
                     <LikeButton onClick={onClickingSave}>
-                      <LikeIcon themeColor={darkTheme} isSaved={isSaved}>
+                      <LikeIcon themeColor={darkTheme} disabled={isSaved}>
                         <MdPlaylistAdd />
                       </LikeIcon>
-                      <LikeName themeColor={darkTheme} isSaved={isSaved}>
+                      <LikeName themeColor={darkTheme} addColor={isSaved}>
                         {isSaved ? 'Saved' : 'Save'}
                       </LikeName>
                     </LikeButton>
@@ -210,9 +213,6 @@ class VideoItemDetails extends Component {
                     <Subscribers themeColor={darkTheme}>
                       {subscriberCount} subscribers
                     </Subscribers>
-                    <ChannelDescription large themeColor={darkTheme}>
-                      {description}
-                    </ChannelDescription>
                   </ChannelContainer>
                 </ProfileContainer>
                 <ChannelDescription themeColor={darkTheme}>

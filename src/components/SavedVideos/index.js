@@ -26,7 +26,7 @@ import {
   Details,
   DotIcon,
   PublishedViewContainer,
-} from '../Trending/styledComponents'
+} from './styledComponents'
 
 import {
   NoResultsContainer,
@@ -43,7 +43,7 @@ class Trending extends Component {
     <NxtWatchContext.Consumer>
       {value => {
         const {darkTheme, savedVideosList} = value
-        return savedVideosList.length > 0 ? (
+        return savedVideosList.length !== 0 ? (
           <VideosListContainer>
             {savedVideosList.map(video => {
               const {

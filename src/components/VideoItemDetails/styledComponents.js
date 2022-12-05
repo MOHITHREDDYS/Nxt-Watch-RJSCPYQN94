@@ -89,13 +89,14 @@ export const VideoDetailsContainer = styled.div`
     max-width: 800px;
   }
 `
-export const VideoHeading = styled.h1`
+export const VideoHeading = styled.p`
   color: ${props => (props.themeColor ? '#f1f5f9' : '#0f0f0f')};
   font-size: 17px;
   margin-top: 0px;
   font-family: 'Roboto';
   line-height: 1.5;
   margin-bottom: 15px;
+  font-weight: bold;
   @media screen and (min-width: 768px) {
     font-size: 20px;
   }
@@ -158,8 +159,8 @@ export const LikeButton = styled.button`
 export const LikeIcon = styled(DotIcon)`
   margin-right: 5px;
   color: ${props => {
-    const {isSaved, isLiked, isDisliked} = props
-    if (isSaved || isLiked || isDisliked) {
+    const {disabled, addColor} = props
+    if (disabled || addColor) {
       return '#2563eb'
     }
     return '#64748b'
@@ -169,8 +170,8 @@ export const LikeName = styled(Details)`
   font-size: 16px;
   font-weight: 600;
   color: ${props => {
-    const {isSaved, isLiked, isDisliked} = props
-    if (isSaved || isLiked || isDisliked) {
+    const {disabled, addColor} = props
+    if (disabled || addColor) {
       return '#2563eb'
     }
     // return themeColor ? '#94a3b8' : '#475569'
@@ -210,15 +211,13 @@ export const Subscribers = styled(ChannelName)`
 `
 
 export const ChannelDescription = styled.p`
-  display: ${props => (props.large ? 'none' : 'flex')};
   color: ${props => (props.themeColor ? '#ffffff' : '#475569')};
   font-size: 15px;
   font-family: 'Roboto';
   font-weight: 500;
   margin-top: 40px;
   @media screen and (min-width: 768px) {
-    display: ${props => (props.large ? 'flex' : 'none')};
-    margin-top: 20px;
+    margin-left: 60px;
   }
 `
 

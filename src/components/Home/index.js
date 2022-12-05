@@ -193,7 +193,7 @@ class Home extends Component {
             <NoResultsParagraph>
               Try different key words or remove search filter
             </NoResultsParagraph>
-            <RetryButton type="button" onClick={this.onClickingRetryButton}>
+            <RetryButton onClick={this.onClickingRetryButton}>
               Retry
             </RetryButton>
           </NoResultsContainer>

@@ -4,7 +4,7 @@ import {
   NoResultsHeading,
   NoResultsParagraph,
   RetryButton,
-} from '../Home/styledComponents'
+} from './styledComponents'
 import NxtWatchContext from '../../context/NxtWatchContext'
 
 const FailureView = props => {
