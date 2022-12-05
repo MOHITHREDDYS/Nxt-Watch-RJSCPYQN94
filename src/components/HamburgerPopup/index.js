@@ -1,3 +1,4 @@
+import {withRouter} from 'react-router-dom'
 import Popup from 'reactjs-popup'
 import {GiHamburgerMenu} from 'react-icons/gi'
 import {MdClose} from 'react-icons/md'
@@ -40,10 +41,13 @@ import {PopupContainer, HamItemsContainer, CloseIcon} from './styledComponents'
   },
 ] */
 
-const HamburgerPopup = () => (
+const HamburgerPopup = props => (
   <NxtWatchContext.Consumer>
     {value => {
       const {darkTheme, tabsList, changeActiveTab} = value
+
+      const {match} = props
+      const {url} = match
 
       return (
         <Popup
@@ -67,6 +71,7 @@ const HamburgerPopup = () => (
                     tabDetails={eachTab}
                     changeActiveTab={changeActiveTab}
                     darkTheme={darkTheme}
+                    url={url}
                   />
                 ))}
               </HamItemsContainer>
@@ -78,4 +83,4 @@ const HamburgerPopup = () => (
   </NxtWatchContext.Consumer>
 )
 
-export default HamburgerPopup
+export default withRouter(HamburgerPopup)

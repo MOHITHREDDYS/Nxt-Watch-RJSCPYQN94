@@ -24,28 +24,24 @@ const initialTabsList = [
     id: 1,
     displayText: 'Home',
     displayIcon: <AiFillHome className="ham-icons" />,
-    isActive: 'yes',
     path: '/',
   },
   {
     id: 2,
     displayText: 'Trending',
     displayIcon: <HiFire className="ham-icons" />,
-    isActive: 'no',
     path: '/trending',
   },
   {
     id: 3,
     displayText: 'Gaming',
     displayIcon: <SiYoutubegaming className="ham-icons" />,
-    isActive: 'no',
     path: '/gaming',
   },
   {
     id: 4,
     displayText: 'Saved Videos',
     displayIcon: <MdPlaylistAdd className="ham-icons" />,
-    isActive: 'no',
     path: '/saved-videos',
   },
 ]

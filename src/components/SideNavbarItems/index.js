@@ -2,8 +2,8 @@ import {Link} from 'react-router-dom'
 import {IconNameButton, HamItems} from './styledComponents'
 
 const SideNavbarItems = props => {
-  const {tabDetails, changeActiveTab, darkTheme} = props
-  const {id, displayIcon, displayText, path, isActive} = tabDetails
+  const {tabDetails, changeActiveTab, darkTheme, url} = props
+  const {id, displayIcon, displayText, path} = tabDetails
 
   const onClickingHamLink = () => {
     changeActiveTab(id)
@@ -11,9 +11,13 @@ const SideNavbarItems = props => {
 
   return (
     <Link to={path} className="ham-links" key={id} onClick={onClickingHamLink}>
-      <IconNameButton type="button" active={isActive} themeColor={darkTheme}>
+      <IconNameButton
+        type="button"
+        active={url === path ? 'yes' : 'no'}
+        themeColor={darkTheme}
+      >
         {displayIcon}
-        <HamItems active={isActive} themeColor={darkTheme}>
+        <HamItems active={url === path ? 'yes' : 'no'} themeColor={darkTheme}>
           {displayText}
         </HamItems>
       </IconNameButton>

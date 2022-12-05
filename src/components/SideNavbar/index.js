@@ -1,3 +1,4 @@
+import {withRouter} from 'react-router-dom'
 import NxtWatchContext from '../../context/NxtWatchContext'
 
 import {
@@ -13,10 +14,13 @@ import {
 
 import SideNavbarItems from '../SideNavbarItems'
 
-const SideNavbar = () => (
+const SideNavbar = props => (
   <NxtWatchContext.Consumer>
     {value => {
       const {darkTheme, tabsList, changeActiveTab} = value
+
+      const {match} = props
+      const {url} = match
 
       return (
         <MainContainer>
@@ -28,6 +32,7 @@ const SideNavbar = () => (
                   tabDetails={eachTab}
                   changeActiveTab={changeActiveTab}
                   darkTheme={darkTheme}
+                  url={url}
                 />
               ))}
             </HamItemsContainer>
@@ -58,4 +63,4 @@ const SideNavbar = () => (
   </NxtWatchContext.Consumer>
 )
 
-export default SideNavbar
+export default withRouter(SideNavbar)
