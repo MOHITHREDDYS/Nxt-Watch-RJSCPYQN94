@@ -151,6 +151,7 @@ export const LikeButton = styled.button`
   padding: 0px;
   background-color: transparent;
   border: none;
+  cursor: pointer;
   @media screen and (min-width: 768px) {
     margin: 0px;
     margin-left: 15px;

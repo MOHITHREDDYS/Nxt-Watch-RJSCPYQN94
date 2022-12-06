@@ -56,8 +56,32 @@ class App extends Component {
     dislikedVideosList: [],
   }
 
-  toggleTheme = () => {
-    this.setState(prevState => ({darkTheme: !prevState.darkTheme}))
+  componentDidMount() {
+    const getSavedVideos = JSON.parse(localStorage.getItem('saved_videos'))
+    const getLikedVideos = JSON.parse(localStorage.getItem('liked_videos'))
+    const getDislikedVideos = JSON.parse(
+      localStorage.getItem('disliked_videos'),
+    )
+    const isDarkThemeApplied = JSON.parse(localStorage.getItem('dark_theme'))
+
+    this.setState({
+      savedVideosList: getSavedVideos !== null ? getSavedVideos : [],
+    })
+    this.setState({
+      likedVideosList: getLikedVideos !== null ? getLikedVideos : [],
+    })
+    this.setState({
+      dislikedVideosList: getDislikedVideos !== null ? getDislikedVideos : [],
+    })
+
+    this.setState({
+      darkTheme: isDarkThemeApplied !== null ? isDarkThemeApplied : false,
+    })
+  }
+
+  toggleTheme = async () => {
+    await this.setState(prevState => ({darkTheme: !prevState.darkTheme}))
+    this.savetoLocalStorage()
   }
 
   deletingBanner = () => {
@@ -75,50 +99,70 @@ class App extends Component {
     }))
   }
 
-  onClickingSaveButton = (id, addVideo) => {
+  savetoLocalStorage = () => {
+    const {
+      savedVideosList,
+      likedVideosList,
+      dislikedVideosList,
+      darkTheme,
+    } = this.state
+    localStorage.setItem('saved_videos', JSON.stringify(savedVideosList))
+    localStorage.setItem('liked_videos', JSON.stringify(likedVideosList))
+    localStorage.setItem('disliked_videos', JSON.stringify(dislikedVideosList))
+    localStorage.setItem('dark_theme', JSON.stringify(darkTheme))
+  }
+
+  onClickingSaveButton = async (id, addVideo) => {
     const {savedVideosList} = this.state
 
     const isPresent = savedVideosList.some(video => video.id === id)
 
-    return !isPresent
-      ? this.setState({savedVideosList: [...savedVideosList, addVideo]})
-      : this.setState({
-          savedVideosList: savedVideosList.filter(video => video.id !== id),
-        })
+    if (!isPresent) {
+      await this.setState({
+        savedVideosList: [...savedVideosList, addVideo],
+      })
+    } else {
+      await this.setState({
+        savedVideosList: savedVideosList.filter(video => video.id !== id),
+      })
+    }
+    this.savetoLocalStorage()
   }
 
-  onClickingLikeButton = (id, addVideo) => {
+  onClickingLikeButton = async (id, addVideo) => {
     const {likedVideosList, dislikedVideosList} = this.state
 
     const isPresent = likedVideosList.some(video => video.id === id)
 
-    return !isPresent
-      ? this.setState({
-          likedVideosList: [...likedVideosList, addVideo],
-          dislikedVideosList: dislikedVideosList.filter(
-            video => video.id !== id,
-          ),
-        })
-      : this.setState({
-          likedVideosList: likedVideosList.filter(video => video.id !== id),
-        })
+    if (!isPresent) {
+      await this.setState({
+        likedVideosList: [...likedVideosList, addVideo],
+        dislikedVideosList: dislikedVideosList.filter(video => video.id !== id),
+      })
+    } else {
+      await this.setState({
+        likedVideosList: likedVideosList.filter(video => video.id !== id),
+      })
+    }
+    this.savetoLocalStorage()
   }
 
-  onClickingDislikeButton = (id, addVideo) => {
+  onClickingDislikeButton = async (id, addVideo) => {
     const {dislikedVideosList, likedVideosList} = this.state
 
     const isPresent = dislikedVideosList.some(video => video.id === id)
 
-    return !isPresent
-      ? this.setState({
-          dislikedVideosList: [...dislikedVideosList, addVideo],
-          likedVideosList: likedVideosList.filter(video => video.id !== id),
-        })
-      : this.setState({
-          dislikedVideosList: dislikedVideosList.filter(
-            video => video.id !== id,
-          ),
-        })
+    if (!isPresent) {
+      await this.setState({
+        dislikedVideosList: [...dislikedVideosList, addVideo],
+        likedVideosList: likedVideosList.filter(video => video.id !== id),
+      })
+    } else {
+      await this.setState({
+        dislikedVideosList: dislikedVideosList.filter(video => video.id !== id),
+      })
+    }
+    this.savetoLocalStorage()
   }
 
   render() {
@@ -158,7 +202,7 @@ class App extends Component {
             path="/videos/:id"
             component={VideoItemDetails}
           />
-          <Route exact path="/not-found" component={NotFound} />
+          <ProtectedRoute exact path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>
       </NxtWatchContext.Provider>
